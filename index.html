@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <div class="w-full min-h-screen flex justify-center items-center bg-[#0D0714]">
+
+        <button class="bg-green-700 w-[232px] h-10 text-green-100 border-0 rounded-md" id="auth">login</button>
+        <div class="container hidden" id="main">
+            <!-- <h1 class="w-[232px] mx-auto mb-5 text-green-400 block">Todo list</h1> -->
+
+            <div class="flex justify-center items-center flex-row ">
+                <form id="todo-form" class="todo-control">
+                    <div class="flex flex-col">
+                        <label for="todo-title" class="text-gray-300">Todo Title</label>
+                        <input type="text" name="title" id="todo-title"
+                            class="w-[381px] h-[40px] text-[#9E78CF] border border-[#3E1671] placeholder:text-[#777777] placeholder:pl-2 bg-transparent rounded-md"
+                            placeholder="Add todo">
+
+                        <label for="todo-description" class="text-gray-300">Todo Description</label>
+                        <textarea id="todo-description" name="description" placeholder="Enter todo description..."
+                            class="w-[381px] h-[60px] my-5 text-[#9E78CF] border border-[#3E1671] placeholder:text-[#777777] placeholder:pl-2 bg-transparent rounded-md"
+                            name="" id="" cols="10" rows="5"></textarea>
+                    </div>
+
+                    <label for="finished-date" class="text-gray-300">Finished date</label>
+                    <input type="date" name="finishedDate"
+
+                        class="w-full my-3 py-2 px-2 rounded-md bg-[#9E78CF] text-gray-300" id="finished-date">
+
+                    <button type="submit" id="submit"
+
+                        class="bg-[#9E78CF] w-full h-[40px] rounded-md text-[#FFFFFF] text-xl">+</button>
+                    <!-- <span class="text-red-600 my-2 block text-bold">error</span> -->
+                </form>
+
+
+            </div>
+
+            <!-- todo list  -->
+            <div>
+                <div class="flex justify-between items-center py-4 flex-col ">
+                    <div class="flex items-center">
+                        <h1 class="text-purple-500 mr-auto w-[350px]">Task to do : ( <span class="text-purple-500"
+                                id="totalTasks"></span> )</h1>
+
+
+                        <div id="sortBy" class="  ">
+                            <select id="select" class="p-1 rounded-md bg-[#9E78CF] text-gray-300">
+                                class="">
+                                <option selected disabled>Sort By</option>
+                                <option value="asc">Date Asc.</option>
+                                <option value="desc">Date Desc.</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="flex  flex-col w-full   items-center" id="todo-items">
+                </div>
+            </div>
+            <div id="empty-todos" class="mt-5"></div>
+
+
+
+            <div class="flex flex-col justify-center">
+                <div class="flex justify-center items-center py-4 flex-col">
+                    <h1 class="text-green-300 border-b  w-[432px]  ">Done : ( <span class="text-green-400"
+                            id="totalCompletedTasks"></span> ) </h1>
+                </div>
+                <div class="flex justify-center items-center py-4 flex-col" id="complete-list">
+
+                    <!-- <div class="w-[432px] h-[75px] bg-[#15101C] border-0 rounded-md flex justify-center my-2 ">
+                        <h2 class="text-[#78CFB0] my-auto w-full px-3 line-through">To study react fundamental</h2>
+                    </div> -->
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <script type="module" src="./app/app.js"></script>
+    <script src="https://kit.fontawesome.com/fc692f0728.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
