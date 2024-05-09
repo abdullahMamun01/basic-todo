@@ -237,6 +237,7 @@ function handleSubmitForm(e) {
     updateTodoById(editId, title, description, finishedDate);
     handleDocumentById('submit').innerText = '+'
     e.target.reset();
+    editId = null
     return;
   }
 
