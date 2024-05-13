@@ -14,7 +14,7 @@
           <input class="mt-1 ml-2 h-[19px] complete" type="checkbox" name=""  id="${id}">
           <div class="w-[330px] overflow-hidden">
             <div class="flex w-[330px] h-[19px] " >
-            <h2 class="  ps-2 ms-2 text-[#9E78CF] inline-block">${task}</h2>
+            <h2 class="  ps-2 ms-2 text-[#9E78CF] ${todo?.isMatch? 'text-green-700' : ''} inline-block">${task}</h2>
             <span class="text-[10px] ps-2 ms-2 text-[#9E78CF] inline-block mt-auto">${finishedDate}</span>
             
             </div>

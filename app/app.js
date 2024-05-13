@@ -1,6 +1,63 @@
 import { generateCompleteTodoItemUI, generateTodoItemUI } from "./utils.js";
 
-
+const initialTodo = [
+  {
+      "id": 4,
+      "task": "Call plumber",
+      "description": "Fix the leaking pipe in the bathroom.",
+      "date": "2024-05-14",
+      "finishedDate": null,
+      "complete": false
+  },
+  {
+      "id": 5,
+      "task": "Exercise",
+      "description": "Go for a 30-minute jog in the park.",
+      "date": "2024-05-15",
+      "finishedDate": null,
+      "complete": false
+  },
+  {
+      "id": 6,
+      "task": "Read book",
+      "description": "Read the first three chapters of 'The Great Gatsby'.",
+      "date": "2024-05-16",
+      "finishedDate": null,
+      "complete": false
+  },
+  {
+      "id": 7,
+      "task": "Pay bills",
+      "description": "Pay electricity, water, and internet bills.",
+      "date": "2024-05-17",
+      "finishedDate": null,
+      "complete": false
+  },
+  {
+      "id": 8,
+      "task": "Attend meeting",
+      "description": "Participate in the weekly team meeting at work.",
+      "date": "2024-05-18",
+      "finishedDate": null,
+      "complete": false
+  },
+  {
+      "id": 9,
+      "task": "Write report",
+      "description": "Prepare a progress report for the project.",
+      "date": "2024-05-19",
+      "finishedDate": null,
+      "complete": false
+  },
+  {
+      "id": 10,
+      "task": "Clean the house",
+      "description": "Vacuum, dust, and mop all rooms.",
+      "date": "2024-05-20",
+      "finishedDate": null,
+      "complete": false
+  }
+]
 
 //finding todo list from the local storage
 let todoList = JSON.parse(localStorage.getItem("todos"))
@@ -8,13 +65,14 @@ let todoList = JSON.parse(localStorage.getItem("todos"))
   : [];
 
 let editId = null;
+let searchTodo = null
 
 const completeList = handleDocumentById("complete-list");
 const container = handleDocumentById("main");
 const authenticateBtn = handleDocumentById("auth");
 const isLoggedIn = JSON.parse(localStorage.getItem("isLoggedIn")) || false;
 const form = handleDocumentById("todo-form");
-
+const searchInput = handleDocumentById('search')
 
 function updateTotalTasksCount(domId, taskList) {
   const element = handleDocumentById(domId);
@@ -25,8 +83,14 @@ function handleDocumentById(id) {
   return document.getElementById(id);
 }
 
+function handleSearch(e){
+  searchTodo = e.target.value
+  displayTodoList()
+
+}
 
 
+//
 
 //sort with date
 function sortByDate(e){
@@ -112,12 +176,32 @@ function attachEventListenerToButtons(buttons, callback) {
   });
 }
 
+
+function filterByReduce(todoList, searchTodo) {
+  const lowerSearch = searchTodo.toLowerCase();
+
+  return todoList.reduce((acc, todo) => {
+    const task = highlightMatches(todo.task , searchTodo)
+    if(todo.task.includes(todo.task.toLowerCase())){
+      acc.push({...todo , task })
+    }
+    return acc
+  }, []);
+}
+
+
+function highlightMatches(text, searchTerm) {
+  const regex = new RegExp(`(${searchTerm})`, 'gi');
+  return text.replace(regex, '<mark class="">$1</mark>');
+}
+
+
 //render todo list
 function displayTodoList() {
   updateEmptyTodoMessage(todoList);
   const todoContainer = handleDocumentById("todo-items");
   todoContainer.innerHTML = ""; // Clear previous list
-  const inCompleteTask = todoList.filter((todo) => !todo.complete);
+  const inCompleteTask = searchTodo ? filterByReduce(todoList ,searchTodo)  :  todoList.filter((todo) => !todo.complete);
   inCompleteTask.forEach((todo) => {
     generateTodoItemUI(todo);
   });
@@ -254,6 +338,7 @@ function main() {
   displayCompleteList();
   //handle button listener
   form.addEventListener("submit", handleSubmitForm);
+  searchInput.addEventListener('input' , handleSearch)
 
 }
 
