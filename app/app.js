@@ -1,63 +1,6 @@
 import { generateCompleteTodoItemUI, generateTodoItemUI } from "./utils.js";
 
-const initialTodo = [
-  {
-      "id": 4,
-      "task": "Call plumber",
-      "description": "Fix the leaking pipe in the bathroom.",
-      "date": "2024-05-14",
-      "finishedDate": null,
-      "complete": false
-  },
-  {
-      "id": 5,
-      "task": "Exercise",
-      "description": "Go for a 30-minute jog in the park.",
-      "date": "2024-05-15",
-      "finishedDate": null,
-      "complete": false
-  },
-  {
-      "id": 6,
-      "task": "Read book",
-      "description": "Read the first three chapters of 'The Great Gatsby'.",
-      "date": "2024-05-16",
-      "finishedDate": null,
-      "complete": false
-  },
-  {
-      "id": 7,
-      "task": "Pay bills",
-      "description": "Pay electricity, water, and internet bills.",
-      "date": "2024-05-17",
-      "finishedDate": null,
-      "complete": false
-  },
-  {
-      "id": 8,
-      "task": "Attend meeting",
-      "description": "Participate in the weekly team meeting at work.",
-      "date": "2024-05-18",
-      "finishedDate": null,
-      "complete": false
-  },
-  {
-      "id": 9,
-      "task": "Write report",
-      "description": "Prepare a progress report for the project.",
-      "date": "2024-05-19",
-      "finishedDate": null,
-      "complete": false
-  },
-  {
-      "id": 10,
-      "task": "Clean the house",
-      "description": "Vacuum, dust, and mop all rooms.",
-      "date": "2024-05-20",
-      "finishedDate": null,
-      "complete": false
-  }
-]
+
 
 //finding todo list from the local storage
 let todoList = JSON.parse(localStorage.getItem("todos"))
@@ -178,11 +121,11 @@ function attachEventListenerToButtons(buttons, callback) {
 
 
 function filterByReduce(todoList, searchTodo) {
-  const lowerSearch = searchTodo.toLowerCase();
+  const lowerSearch = searchTodo.trim('').toLowerCase();
 
   return todoList.reduce((acc, todo) => {
     const task = highlightMatches(todo.task , searchTodo)
-    if(todo.task.includes(todo.task.toLowerCase())){
+    if(todo.task.toLowerCase().includes(lowerSearch)){
       acc.push({...todo , task })
     }
     return acc
@@ -192,7 +135,7 @@ function filterByReduce(todoList, searchTodo) {
 
 function highlightMatches(text, searchTerm) {
   const regex = new RegExp(`(${searchTerm})`, 'gi');
-  return text.replace(regex, '<mark class="">$1</mark>');
+  return text.replace(regex, `<mark class="">${searchTerm}</mark>`);
 }
 
 
